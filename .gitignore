@@ -47,3 +47,11 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+
+.Rhistory
+
+data/*
+
+*.html
+*.Rproj
+.Rproj.user/
