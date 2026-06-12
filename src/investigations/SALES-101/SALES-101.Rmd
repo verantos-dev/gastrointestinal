@@ -1,0 +1,79 @@
+---
+title: "Merck Crohn's Feasibility Report"
+subtitle: "Description of data availability among patients with Crohn's disease"
+author: "Ashleigh McBratney"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output:
+  html_document:
+    css: "style.css"
+    theme: cerulean
+    highlight: tango
+    toc: yes
+    toc_float: yes
+    toc_depth: 1
+    number_sections: yes
+  pdf_document:
+    toc: no
+    toc_depth: '3'
+editor_options:
+  chunk_output_type: console
+  knitr:
+    opts_chunk: 
+     R.options:
+        width: 200
+---
+
+```{css, echo=FALSE}
+.gt_table {
+  margin-left: 0 !important;
+  margin-right: auto !important;
+}
+```
+
+```{r initialize, message=FALSE, warning=FALSE, include=FALSE}
+tables <- readRDS(here::here("data/SCIENCE-101/sales_101.rds"))
+library(tidyverse)
+library(gt)
+```
+
+# Cohort inclusion criteria 
+> The study index date was defined as the date of the Crohn's disease diagnosis. Patients were required to be at least 18 years of age at the index date and were excluded if they also had an ulcerative colitis (UC) or unspecified IBD diagnosis. 
+
+**Attrition**
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+tables[[5]]
+```
+# Demographic characteristics and CDAI-related symptom prevalence of Crohn's patients
+**Demographics**
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+tables[[1]]
+```
+
+<b>
+
+**CDAI-related symptom prevalence at any time on or after index date **
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+tables[[4]]
+```
+
+# Measurement and symptoms 30 and 60 days prior to procedure, among patients who had a procedure
+> Procedures comprise three categories of Crohn's-relevant intestinal interventions, captured using 77 OMOP standard, Procedure-domain concept identifiers: strictureplasty (3 concepts), endoscopic balloon dilation (7 concepts), and intestinal resection (67 concepts). A procedure qualifies if it occurs on or after the patient's index date within the study period
+
+**Description of procedure types**
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+tables[[6]]
+```
+
+
+**Measures and symptoms prior to procedure**
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+tables[[2]]
+```
+
+
+# Inpatient hospital stay for Crohn's-related flare
+> Patients with ≥1 inpatient hospitalization on or after index with active Crohn's disease as the primary admission diagnosis (remission-coded diagnoses excluded).
+
+```{r, message = FALSE, warning = FALSE, include = TRUE, echo=FALSE}
+tables[[3]]
+```
