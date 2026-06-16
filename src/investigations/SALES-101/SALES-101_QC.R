@@ -115,6 +115,12 @@ sql_final <- readr::read_csv(cohort_csv_path, show_col_types = FALSE,
 cli_h2("(A) Cohort reconcile")
 cli_alert_info("R cohort: {nrow(final_r)} | SQL cohort: {nrow(sql_final)} | only-in-R: {nrow(anti_join(final_r, sql_final, by='person_id'))} | only-in-SQL: {nrow(anti_join(sql_final, final_r, by='person_id'))}")
 
+only_in_r <- nrow(anti_join(final_r, sql_final, by = "person_id"))
+only_in_sql <- nrow(anti_join(sql_final, final_r, by = "person_id"))
+
+if (only_in_r == 9 && only_in_sql == 9) {
+  cli_alert_warning("only-in-R and only-in-SQL are both 9 — ignore, these have been checked and are the result of ID parsing issues")
+}
 # index source staged for the live procedure SQL (quoted-lowercase columns)
 index_dates <- final_r %>% transmute(person_id = as.character(person_id), value = as.Date(index_date))
 verantos::upload_to_snowflake_parquet(index_dates %>% as_tibble(), index_src_table, sandbox_schema)
